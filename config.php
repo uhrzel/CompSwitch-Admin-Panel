@@ -1,11 +1,13 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = "";
+$password = "arzelzolina10";
 $database = "admin-compswitch";
 
-$connection = mysqli_connect($host, $username, $password, $database);
-
-if (!$connection) {
-    die("Connection failed: " . mysqli_connect_error());
+try {
+    $connection = new PDO("mysql:host=$host;dbname=$database", $username, $password);
+    // Set the PDO error mode to exception
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+} catch (PDOException $e) {
+    die("Connection failed: " . $e->getMessage());
 }

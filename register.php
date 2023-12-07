@@ -2,8 +2,10 @@
 include('includes/header.php');
 include('includes/navbar.php');
 include('config.php');
+
 $query = "SELECT * FROM students";
-$query_run = mysqli_query($connection, $query);
+$query_run = $connection->query($query); // Using PDO query method
+
 ?>
 
 
@@ -81,7 +83,7 @@ $query_run = mysqli_query($connection, $query);
         </button>
       </h6>
     </div>
-    
+
     <div class="card-body">
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -101,10 +103,12 @@ $query_run = mysqli_query($connection, $query);
           <tbody>
             <?php
             $query = "SELECT * FROM students";
-            $query_run = mysqli_query($connection, $query);
+            $query_run = $connection->query($query); // Using PDO query method
+
+
 
             if ($query_run) {
-              while ($row = mysqli_fetch_assoc($query_run)) {
+              while ($row = $query_run->fetch(PDO::FETCH_ASSOC)) {
             ?>
                 <tr>
                   <td><?php echo $row['id_number']; ?></td>
@@ -115,7 +119,7 @@ $query_run = mysqli_query($connection, $query);
                   <td><?php echo date('h:i A', strtotime($row['time_in'])); ?></td>
                   <td><?php echo date('h:i A', strtotime($row['time_out'])); ?></td>
                   <td>
-                    <button type="button" class="btn btn-success edit-btn" data-toggle="modal" data-target="#editButton<?php echo $row['id']; ?>" data-id="<?php echo $row['id']; ?>" data-id-number="<?php echo $row['id_number']; ?>" data-lastname="<?php echo $row['lastname']; ?>" data-firstname="<?php echo $row['firstname']; ?>" data-gender="<?php echo $row['gender']; ?>" data-course="<?php echo $row['course']; ?>" data-time-in="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_in'])); ?>" data-time-out="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_out'])); ?>">
+                    <button type="button" class="btn btn-success edit-btn" data-toggle="modal" data-target="#editButton<?php echo $row['id']; ?>" data-id="<?php echo $row['id']; ?>" data-id-number="<?php echo $row['id_number']; ?>" data-lastname="<?php echo $row['lastname']; ?>" data-firstname="<?php echo $row['firstname']; ?>" data-gender="<?php echo $row['gender']; ?>" data-course="<?php echo $row['course']; ?>" data-course="<?php echo $row['status']; ?>" data-time-in="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_in'])); ?>" data-time-out="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_out'])); ?>">
                       EDIT
                     </button>
                   </td>
@@ -136,10 +140,9 @@ $query_run = mysqli_query($connection, $query);
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <form action="edit_student.php" method="POST">
-
+                      <form action="edit_student.php" method="post">
                         <div class="modal-body">
-                          <!-- Pass the data you want to edit to the form fields -->
+
                           <div class="form-group">
                             <label>Student ID</label>
                             <input type="text" name="edit_IDNo" class="form-control" value="<?php echo $row['id_number']; ?>">
@@ -155,24 +158,24 @@ $query_run = mysqli_query($connection, $query);
                           <div class="form-group">
                             <label>Gender</label>
                             <select name="edit_gender" class="form-control">
-                              <option value="male">Male</option>
-                              <option value="female">Female</option>
-
+                              <option value="male" <?php echo ($row['gender'] == 'male') ? 'selected' : ''; ?>>Male</option>
+                              <option value="female" <?php echo ($row['gender'] == 'female') ? 'selected' : ''; ?>>Female</option>
                             </select>
                           </div>
+
                           <div class="form-group">
                             <label>Course</label>
                             <select name="edit_course" class="form-control">
-                              <option value="course1">BSHM</option>
-                              <option value="course2">BSIT</option>
-                              <option value="course1">BSCE</option>
-                              <option value="course2">BSTM</option>
-                              <option value="course1">BSEDUC</option>
-                              <option value="course2">BSBA</option>
+                              <option value="BSHM" <?php echo ($row['course'] == 'BSHM') ? 'selected' : ''; ?>>BSHM</option>
+                              <option value="BSIT" <?php echo ($row['course'] == 'BSIT') ? 'selected' : ''; ?>>BSIT</option>
+                              <option value="BSCE" <?php echo ($row['course'] == 'BSCE') ? 'selected' : ''; ?>>BSCE</option>
+                              <option value="BSTM" <?php echo ($row['course'] == 'BSTM') ? 'selected' : ''; ?>>BSTM</option>
+                              <option value="BSEDUC" <?php echo ($row['course'] == 'BSEDUC') ? 'selected' : ''; ?>>BSEDUC</option>
+                              <option value="BSBA" <?php echo ($row['course'] == 'BSBA') ? 'selected' : ''; ?>>BSBA</option>
                             </select>
                           </div>
 
-                          <!-- New inputs for Time In and Time Out -->
+
                           <div class="form-group">
                             <label>Time In</label>
                             <input type="datetime-local" name="edit_time_in" class="form-control" value="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_in'])); ?>">
@@ -196,7 +199,7 @@ $query_run = mysqli_query($connection, $query);
             <?php
               }
             } else {
-              echo "Error in query: " . mysqli_error($connection);
+              echo "Error in query: " . $connection->errorInfo()[2];
             }
             ?>
           </tbody>
