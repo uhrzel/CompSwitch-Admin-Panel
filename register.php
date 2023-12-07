@@ -127,14 +127,14 @@ $query_run = $connection->query($query); // Using PDO query method
                     </button>
                   </td>
                   <td>
-                    <form action="delete.php" method="post">
-                      <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
-                      <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
-                    </form>
+                    <button type="button" class="btn btn-danger delete-btn" data-toggle="modal" data-target="#deleteModal<?php echo $row['id']; ?>">
+                      DELETE
+                    </button>
                   </td>
+
                 </tr>
 
-                <div class="modal fade" id="editButton<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                <div class=" modal fade" id="editButton<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -195,14 +195,9 @@ $query_run = $connection->query($query); // Using PDO query method
                             <input type="datetime-local" name="edit_time_out" class="form-control" value="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_out'])); ?>">
                           </div>
 
-                          <div class="form-group">
-                            <label>Time Out</label>
-                            <input type="text" name="edit_time_out" class="form-control" value="<?php echo ($row['id']); ?>">
-                          </div>
-
                         </div>
                         <div class="modal-footer">
-                          <input type="hidden" id="edit_id" name="edit_id" value="">
+                          <input type="hidden" id="edit_id" name="edit_id" value="<?php echo $row['id']; ?>">
                           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                           <button type="submit" name="edit_btn" class="btn btn-primary">Save</button>
                         </div>
@@ -210,6 +205,27 @@ $query_run = $connection->query($query); // Using PDO query method
                     </div>
                   </div>
                 </div>
+
+                <div class="modal fade" id="deleteModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Student Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete this student?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger confirm-delete" data-student-id="<?php echo $row['id']; ?>">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
             <?php
               }
             } else {
@@ -222,6 +238,39 @@ $query_run = $connection->query($query); // Using PDO query method
     </div>
   </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    // Handle confirmation modal
+    $('.delete-btn').click(function() {
+      var studentId = $(this).data('id');
+      $('.confirm-delete').attr('data-student-id', studentId);
+    });
+
+    // Handle delete confirmation
+    $('.confirm-delete').click(function() {
+      var studentId = $(this).data('student-id');
+      $.ajax({
+        url: 'delete.php',
+        type: 'POST',
+        data: {
+          delete_btn: true,
+          delete_id: studentId
+        },
+        success: function() {
+          // Reload the page or update the table using JavaScript
+          location.reload(); // Reloads the current page
+        },
+        error: function(error) {
+          console.log('Error:', error);
+          // Handle error as needed
+        }
+      });
+    });
+  });
+</script>
+
 
 
 <?php
