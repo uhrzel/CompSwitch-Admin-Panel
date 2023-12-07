@@ -1,7 +1,7 @@
 <?php
 $host = "localhost";
 $username = "root";
-$password = "arzelzolina10";
+$password = "";
 $database = "admin-compswitch";
 
 try {

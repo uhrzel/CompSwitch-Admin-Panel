@@ -32,6 +32,12 @@
          <i class="fas fa-fw fa-chart-area"></i>
          <span>Students Registration</span></a>
      </li>
+     <li class="nav-item">
+       <a class="nav-link" href="backup.php">
+         <i class="fas fa-fw fa-save"></i>
+         <span>Backup</span>
+       </a>
+     </li>
 
 
 
