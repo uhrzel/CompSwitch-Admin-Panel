@@ -6,9 +6,9 @@ include('config.php');
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require './PHPMailer/src/PHPMailer.php';
-require './PHPMailer/src/Exception.php';
-require './PHPMailer/src/SMTP.php';
+require './vendor/phpmailer/phpmailer/src/PHPMailer.php';
+require './vendor/phpmailer/phpmailer/src/Exception.php';
+require './vendor/phpmailer/phpmailer/src/SMTP.php';
 
 // Backup logic
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
