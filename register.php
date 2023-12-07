@@ -8,7 +8,6 @@ $query_run = $connection->query($query); // Using PDO query method
 
 ?>
 
-
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -53,6 +52,13 @@ $query_run = $connection->query($query); // Using PDO query method
             </select>
           </div>
           <div class="form-group">
+            <label>Status</label>
+            <select name="status" class="form-control">
+              <option value="Pending">Pending</option>
+              <option value="Active">Active</option>
+            </select>
+          </div>
+          <div class="form-group">
             <label>Time In</label>
             <input type="datetime-local" name="time_in" class="form-control">
           </div>
@@ -71,7 +77,6 @@ $query_run = $connection->query($query); // Using PDO query method
     </div>
   </div>
 </div>
-
 
 <div class="container-fluid">
 
@@ -104,8 +109,6 @@ $query_run = $connection->query($query); // Using PDO query method
             <?php
             $query = "SELECT * FROM students";
             $query_run = $connection->query($query); // Using PDO query method
-
-
 
             if ($query_run) {
               while ($row = $query_run->fetch(PDO::FETCH_ASSOC)) {
@@ -174,7 +177,13 @@ $query_run = $connection->query($query); // Using PDO query method
                               <option value="BSBA" <?php echo ($row['course'] == 'BSBA') ? 'selected' : ''; ?>>BSBA</option>
                             </select>
                           </div>
-
+                          <div class="form-group">
+                            <label>Status</label>
+                            <select name="edit_status" class="form-control">
+                              <option value="Pending" <?php echo ($row['status'] == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                              <option value="Active" <?php echo ($row['status'] == 'Active') ? 'selected' : ''; ?>>Active</option>
+                            </select>
+                          </div>
 
                           <div class="form-group">
                             <label>Time In</label>
@@ -208,38 +217,6 @@ $query_run = $connection->query($query); // Using PDO query method
     </div>
   </div>
 </div>
-
-
-
-<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI/t1fqsL72Yz1Y67Bv9Dj1T0M3xPjS9QFqF4b4M=" crossorigin="anonymous"></script>
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
-<script>
-  $(document).ready(function() {
-    $('.edit-btn').on('click', function() {
-      var idNumber = $(this).data('id-number');
-      var lastname = $(this).data('lastname');
-      var firstname = $(this).data('firstname');
-      var gender = $(this).data('gender');
-      var course = $(this).data('course');
-      var timeIn = $(this).data('time-in');
-      var timeOut = $(this).data('time-out');
-      var editId = $(this).data('id');
-      $('#editButton').modal('show');
-
-      $('#edit_IDNo').val(idNumber);
-      $('#edit_lname').val(lastname);
-      $('#edit_fname').val(firstname);
-      $('#edit_gender').val(gender);
-      $('#edit_course').val(course);
-      $('#edit_time_in').val(timeIn);
-      $('#edit_time_out').val(timeOut);
-      $('#edit_id').val(editId);
-
-    });
-  });
-</script>
 
 
 <?php

@@ -8,7 +8,7 @@ if (isset($_POST['registerbtn'])) {
     $firstName = $_POST['fname'];
     $gender = $_POST['gender'];
     $course = $_POST['course'];
-    $status = 'pending'; // Static status
+    $status = $_POST['status'];
     $timeIn = $_POST['time_in'];
     $timeOut = $_POST['time_out'];
 
