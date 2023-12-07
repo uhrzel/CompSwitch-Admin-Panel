@@ -195,6 +195,11 @@ $query_run = $connection->query($query); // Using PDO query method
                             <input type="datetime-local" name="edit_time_out" class="form-control" value="<?php echo date('Y-m-d\TH:i:s', strtotime($row['time_out'])); ?>">
                           </div>
 
+                          <div class="form-group">
+                            <label>Time Out</label>
+                            <input type="text" name="edit_time_out" class="form-control" value="<?php echo ($row['id']); ?>">
+                          </div>
+
                         </div>
                         <div class="modal-footer">
                           <input type="hidden" id="edit_id" name="edit_id" value="">
