@@ -130,8 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $recipients = [
-            ['email' => 'arzeljrz17@gmail.com', 'name' => 'Arzel John Zolina'],
-            ['email' => 'ajmixrhyme@gmail.com', 'name' => 'Recipient Name'],
+            ['email' => 'monatanomarjorie9@gmail.com', 'name' => 'Marjorie Montano'],
+            ['email' => 'pingoyzyra123@gmail.com', 'name' => 'Zyra Pingoy'],
             // Add more recipients as needed
         ];
         sendBackupToGmail($backupData, $backupFilename, $recipients);
