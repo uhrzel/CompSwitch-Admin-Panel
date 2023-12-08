@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
 
         $recipients = [
-            ['email' => 'monatanomarjorie9@gmail.com', 'name' => 'Marjorie Montano'],
+            ['email' => 'montanomarjorie9@gmail.com', 'name' => 'Marjorie Montano'],
             ['email' => 'pingoyzyra123@gmail.com', 'name' => 'Zyra Pingoy'],
             // Add more recipients as needed
         ];
