@@ -6,7 +6,7 @@ if (isset($_POST['delete_btn'])) {
     $delete_id = $_POST['delete_id'];
 
     try {
-        $delete_query = "DELETE FROM students WHERE id = :delete_id";
+        $delete_query = "DELETE FROM 1st_year_1st_semester WHERE id = :delete_id";
         $stmt = $connection->prepare($delete_query);
         $stmt->bindParam(':delete_id', $delete_id);
         $stmt->execute();
@@ -20,5 +20,5 @@ if (isset($_POST['delete_btn'])) {
 }
 
 // Fetch data from the students table
-$query = "SELECT * FROM students";
+$query = "SELECT * FROM 1st_year_1st_semester";
 $query_run = $connection->query($query);

@@ -30,8 +30,50 @@
      <li class="nav-item">
        <a class="nav-link" href="register.php">
          <i class="fas fa-fw fa-chart-area"></i>
-         <span>Students Registration</span></a>
+         <span>1st year 1st sem</span></a>
      </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>1st year 2nd sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>2nd year 1st sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>2nd year 2nd sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>3rd year 1st sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>3rd year 2nd sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>4th year 1st sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>4th year 2nd sem</span></a>
+     </li>
+     <li class="nav-item">
+       <a class="nav-link" href="register.php">
+         <i class="fas fa-fw fa-chart-area"></i>
+         <span>Mid year</span></a>
+     </li>
+
+
      <li class="nav-item">
        <a class="nav-link" href="backup.php">
          <i class="fas fa-fw fa-save"></i>

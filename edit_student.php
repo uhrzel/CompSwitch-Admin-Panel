@@ -3,19 +3,16 @@ include('config.php');
 
 if (isset($_POST['edit_btn'])) {
     $edit_id = $_POST['edit_id'];
-    $edit_IDNo = $_POST['edit_IDNo'];
-    $edit_lname = $_POST['edit_lname'];
-    $edit_fname = $_POST['edit_fname'];
-    $edit_gender = $_POST['edit_gender'];
-    $edit_course = $_POST['edit_course'];
-    $edit_status = $_POST['edit_status'];
-    $edit_time_in = $_POST['edit_time_in'];
-    $edit_time_out = $_POST['edit_time_out'];
+    $courseCode = $_POST['course_code'];
+    $courseName = $_POST['course_name'];
+    $grade = $_POST['grade'];
+    $instructor = $_POST['instructor'];
+
 
     try {
-        $query = "UPDATE students SET id_number=?, lastname=?, firstname=?, gender=?, course=?, status=?, time_in=?, time_out=? WHERE id=?";
+        $query = "UPDATE 1st_year_1st_semester SET course_code=?,course_name=?, grade=?, instructor=? WHERE id=?";
         $stmt = $connection->prepare($query);
-        $stmt->execute([$edit_IDNo, $edit_lname, $edit_fname, $edit_gender, $edit_course, $edit_status, $edit_time_in, $edit_time_out, $edit_id]);
+        $stmt->execute([$courseCode, $courseName, $grade, $instructor, $edit_id]);
 
         echo '<script type="text/javascript">alert("Data Updated"); window.location="register.php";</script>';
     } catch (PDOException $e) {
