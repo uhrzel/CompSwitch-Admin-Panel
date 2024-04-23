@@ -16,7 +16,7 @@ if (isset($_POST['delete_btn'])) {
         $_SESSION['status'] = "Error deleting student: " . $e->getMessage();
     }
 
-    header('Location: register.php');
+    header('Location: register1stc1stsem.php');
 }
 
 // Fetch data from the students table

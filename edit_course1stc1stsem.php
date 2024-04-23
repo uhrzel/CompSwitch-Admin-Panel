@@ -14,7 +14,7 @@ if (isset($_POST['edit_btn'])) {
         $stmt = $connection->prepare($query);
         $stmt->execute([$courseCode, $courseName, $grade, $instructor, $edit_id]);
 
-        echo '<script type="text/javascript">alert("Data Updated"); window.location="register.php";</script>';
+        echo '<script type="text/javascript">alert("Data Updated"); window.location="register1stc1stsem.php";</script>';
     } catch (PDOException $e) {
         echo '<script type="text/javascript">alert("Data Not Updated"); window.location="404.html";</script>';
     }

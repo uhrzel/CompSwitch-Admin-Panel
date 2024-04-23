@@ -7,7 +7,6 @@ $query = "SELECT * FROM 1st_year_1st_semester";
 $query_run = $connection->query($query); // Using PDO query method
 
 ?>
-
 <div class="modal fade" id="addadminprofile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -17,7 +16,7 @@ $query_run = $connection->query($query); // Using PDO query method
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="registered_student.php" method="POST">
+      <form action="registered_course1stc1stsem.php" method="POST">
 
         <div class="modal-body">
 
@@ -60,6 +59,12 @@ $query_run = $connection->query($query); // Using PDO query method
     </div>
 
     <div class="card-body">
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search course..." aria-label="Search course" aria-describedby="button-addon2" id="searchInput" style="max-width: 250px;">
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="button-addon2">Search</button>
+        </div>
+      </div>
       <div class="table-responsive">
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
           <thead>
@@ -72,7 +77,7 @@ $query_run = $connection->query($query); // Using PDO query method
               <th>DELETE </th>
             </tr>
           </thead>
-          <tbody>
+          <tbody id="courseTableBody">
             <?php
             $query = "SELECT * FROM 1st_year_1st_semester";
             $query_run = $connection->query($query); // Using PDO query method
@@ -81,10 +86,10 @@ $query_run = $connection->query($query); // Using PDO query method
               while ($row = $query_run->fetch(PDO::FETCH_ASSOC)) {
             ?>
                 <tr>
-                  <td><?php echo $row['course_code']; ?></td>
-                  <td><?php echo $row['course_name']; ?></td>
-                  <td><?php echo $row['grade']; ?></td>
-                  <td><?php echo $row['instructor']; ?></td>
+                  <td class="course-code"><?php echo $row['course_code']; ?></td>
+                  <td class="course-name"><?php echo $row['course_name']; ?></td>
+                  <td class="grade"><?php echo $row['grade']; ?></td>
+                  <td class="instructor"><?php echo $row['instructor']; ?></td>
 
                   <td>
                     <button type="button" class="btn btn-success edit-btn" data-toggle="modal" data-target="#editButton<?php echo $row['id']; ?>" data-id="<?php echo $row['id']; ?>" data-id-number="<?php echo $row['course_code']; ?>" data-lastname="<?php echo $row['course_name']; ?>" data-firstname="<?php echo $row['grade']; ?>" data-gender="<?php echo $row['instructor']; ?>">
@@ -97,7 +102,25 @@ $query_run = $connection->query($query); // Using PDO query method
                     </button>
                   </td>
                 </tr>
-
+                <div class="modal fade" id="deleteModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="deleteModalLabel">Delete Student Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to delete this student?
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-danger confirm-delete" data-student-id="<?php echo $row['id']; ?>">Delete</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
                 <div class=" modal fade" id="editButton<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
@@ -107,7 +130,7 @@ $query_run = $connection->query($query); // Using PDO query method
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
-                      <form action="edit_student.php" method="post">
+                      <form action="edit_course1stc1stsem.php" method="post">
                         <div class="modal-body">
 
                           <div class="form-group">
@@ -137,25 +160,7 @@ $query_run = $connection->query($query); // Using PDO query method
                     </div>
                   </div>
                 </div>
-                <div class="modal fade" id="deleteModal<?php echo $row['id']; ?>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                  <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h5 class="modal-title" id="deleteModalLabel">Delete Student Data</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        Are you sure you want to delete this student?
-                      </div>
-                      <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <button type="button" class="btn btn-danger confirm-delete" data-student-id="<?php echo $row['id']; ?>">Delete</button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+
 
             <?php
               }
@@ -171,6 +176,24 @@ $query_run = $connection->query($query); // Using PDO query method
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const tableRows = document.querySelectorAll('#courseTableBody tr');
+
+    tableRows.forEach(row => {
+      /*  const userId = row.querySelector('.user-id').textContent.toLowerCase(); */
+      const courseCode = row.querySelector('.course-code').textContent.toLowerCase();
+      const courseName = row.querySelector('.course-name').textContent.toLowerCase();
+      const grade = row.querySelector('.grade').textContent.toLowerCase();
+      const instructor = row.querySelector('.instructor').textContent.toLowerCase();
+
+      if ( /* userId.includes(searchTerm) || */ courseCode.includes(searchTerm) || courseName.includes(searchTerm) || grade.includes(searchTerm) || instructor.includes(searchTerm)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
   $(document).ready(function() {
     // Handle confirmation modal
     $('.delete-btn').click(function() {
@@ -182,7 +205,7 @@ $query_run = $connection->query($query); // Using PDO query method
     $('.confirm-delete').click(function() {
       var studentId = $(this).data('student-id');
       $.ajax({
-        url: 'delete.php',
+        url: 'delete_course1stc1stsem.php',
         type: 'POST',
         data: {
           delete_btn: true,

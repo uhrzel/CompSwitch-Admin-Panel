@@ -27,5 +27,5 @@ if (isset($_POST['registerbtn'])) {
         $_SESSION['status'] = "Course registration failed";
     }
 
-    header('Location: register.php');
+    header('Location: register1stc1stsem.php');
 }
