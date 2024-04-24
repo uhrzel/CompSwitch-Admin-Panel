@@ -33,7 +33,7 @@
          <span>1st year 1st sem</span></a>
      </li>
      <li class="nav-item">
-       <a class="nav-link" href="register.php">
+       <a class="nav-link" href="register1stc2ndsem.php">
          <i class="fas fa-fw fa-chart-area"></i>
          <span>1st year 2nd sem</span></a>
      </li>
