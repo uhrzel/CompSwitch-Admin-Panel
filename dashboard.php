@@ -1,17 +1,49 @@
 <?php
 include('includes/header.php');
 include('includes/navbar.php');
-?>
 
+// Include database connection from config.php
+include('config.php');
+
+// Function to count rows in a table
+function countRows($connection, $table)
+{
+  $sql = "SELECT COUNT(*) AS count FROM $table";
+  $stmt = $connection->prepare($sql);
+  $stmt->execute();
+  $result = $stmt->fetch(PDO::FETCH_ASSOC);
+  return $result['count'];
+}
+
+// Array of semester tables including 'midyear'
+$semesterTables = [
+  "1st_year_1st_semester",
+  "1st_year_2nd_semester",
+  "2nd_year_1st_semester",
+  "2nd_year_2nd_semester",
+  "3rd_year_1st_semester",
+  "3rd_year_2nd_semester",
+  "4th_year_1st_semester",
+  "4th_year_2nd_semester",
+  "midyear"
+];
+
+$totalCourses = 0;
+$years = [];
+foreach ($semesterTables as $table) {
+  $totalCourses += countRows($connection, $table);
+  preg_match("/(\d+)/", $table, $matches);
+  if (!empty($matches)) {
+    $years[] = $matches[0];
+  }
+}
+
+$totalYears = count(array_unique($years)) + 1;
+
+?>
 
 <!-- Begin Page Content -->
 <div class="container-fluid">
-
-  <!-- Page Heading -->
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
-  </div>
 
   <!-- Content Row -->
   <div class="row">
@@ -22,11 +54,9 @@ include('includes/navbar.php');
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Registered Students</div>
+              <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Semesters</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
-
-                <h4>Total Students: 50</h4>
-
+                <h4><?php echo count($semesterTables); ?></h4>
               </div>
             </div>
             <div class="col-auto">
@@ -36,37 +66,34 @@ include('includes/navbar.php');
         </div>
       </div>
     </div>
-
-    <!--     <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-success shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Annual)</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">$215,000</div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> -->
-
-
     <div class="col-xl-3 col-md-6 mb-4">
       <div class="card border-left-info shadow h-100 py-2">
         <div class="card-body">
           <div class="row no-gutters align-items-center">
             <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Computers</div>
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Years</div>
+              <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totalYears; ?></div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-calendar fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+      <div class="card border-left-info shadow h-100 py-2">
+        <div class="card-body">
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Total Courses</div>
               <div class="row no-gutters align-items-center">
                 <div class="col-auto">
-                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                  <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $totalCourses; ?></div>
                 </div>
                 <div class="col">
                   <div class="progress progress-sm mr-2">
-                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                    <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="<?php echo $totalCourses; ?>" aria-valuemin="0" aria-valuemax="100"></div>
                   </div>
                 </div>
               </div>
@@ -79,33 +106,10 @@ include('includes/navbar.php');
       </div>
     </div>
 
-    <div class="col-xl-3 col-md-6 mb-4">
-      <div class="card border-left-warning shadow h-100 py-2">
-        <div class="card-body">
-          <div class="row no-gutters align-items-center">
-            <div class="col mr-2">
-              <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Status</div>
-              <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
-            </div>
-            <div class="col-auto">
-              <i class="fas fa-comments fa-2x text-gray-300"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+</div>
 
-
-
-
-
-
-
-
-
-
-  <?php
-  include('includes/scripts.php');
-  include('includes/footer.php');
-  ?>
+<?php
+include('includes/scripts.php');
+include('includes/footer.php');
+?>
