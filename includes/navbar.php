@@ -68,7 +68,7 @@
          <span>4th year 2nd sem</span></a>
      </li>
      <li class="nav-item">
-       <a class="nav-link" href="register.php">
+       <a class="nav-link" href="midyear.php">
          <i class="fas fa-fw fa-chart-area"></i>
          <span>Mid year</span></a>
      </li>
