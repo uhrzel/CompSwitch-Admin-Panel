@@ -63,7 +63,7 @@
          <span>4th year 1st sem</span></a>
      </li>
      <li class="nav-item">
-       <a class="nav-link" href="register.php">
+       <a class="nav-link" href="register4thc2ndsem.php">
          <i class="fas fa-fw fa-chart-area"></i>
          <span>4th year 2nd sem</span></a>
      </li>
@@ -73,14 +73,14 @@
          <span>Mid year</span></a>
      </li>
 
-
+     <!-- 
      <li class="nav-item">
        <a class="nav-link" href="backup.php">
          <i class="fas fa-fw fa-save"></i>
          <span>Backup</span>
        </a>
      </li>
-
+ -->
 
 
 
